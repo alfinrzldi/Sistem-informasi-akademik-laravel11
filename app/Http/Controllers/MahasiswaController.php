@@ -11,7 +11,7 @@ class MahasiswaController extends Controller
 {
     public function index()
     {
-        $data = ['nama' => 'hitler', 'foto' =>'opp.jpeg'];
+        $data = ['nama' => '', 'foto' =>'opp.jpeg'];
         $mahasiswa = DB::table('mahasiswa')->get();
         return view('mahasiswa.index', compact ('data', 'mahasiswa')); 
     }
