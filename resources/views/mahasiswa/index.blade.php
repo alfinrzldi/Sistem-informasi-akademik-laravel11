@@ -32,7 +32,7 @@
   
                 <div class="card-tools">
                 <div class="card-tools">
-                <a href="tambahmahasiswa.php" class="btn btn-warning">Tambah</a>
+                <a href="/mahasiswa/create" class="btn btn-warning">Tambah</a>
                   </div>
                 </div>
               </div>
@@ -60,12 +60,17 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$m->nim}}</td>
                       <td>{{$m->nama}}</td>
-                      <td>{{$m->id_prodi}}</td>
+                      <td>{{$m->prodi_id}}</td>
                       <td>{{$m->no_hp}}</td>
                       <td>{{$m->alamat}}</td>
                       <td> <img src="dist/img/{{$m->foto}}?>" width="100px" height="100px" /> </td>
-                      <td><a href="" class="btn btn-primary" >Edit</a>
-                        <a href="" class="btn btn-danger" >Hapus</a></td>
+                      <td><a href="{{ url ("mahasiswa/$m->nim/edit")}}" class="btn btn-primary" >Edit</a>
+                        <form action="{{ url("mahasiswa/$m->nim")}}" method="post" class="d-inline">
+                          @method('delete')
+                          @csrf
+                        <button href="" class="btn btn-danger" onclick="return confirm('Yakin mau delete semua kenangan yang ada?')" >Hapus</button>
+                      </form>
+                    </td>
                     </tr>
 @endforeach
                   </tbody>
