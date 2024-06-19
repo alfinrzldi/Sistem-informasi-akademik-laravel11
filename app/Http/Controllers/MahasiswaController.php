@@ -15,8 +15,8 @@ class MahasiswaController extends Controller
     public function index()
     {
         //
-        $data = ['nama' => 'hitler', 'foto' => 'opp.jpeg'];
-        $mahasiswa = Mahasiswa::get();
+        $data = ['nama' => '', 'foto' => 'cals.webp'];
+        $mahasiswa = Mahasiswa::with('prodi')->get();
         return view('mahasiswa.index', compact(['data', 'mahasiswa']));
     }
 
@@ -26,7 +26,7 @@ class MahasiswaController extends Controller
     public function create()
     {
         //
-        $data = ['nama' => 'hitler', 'foto' => 'opp.jpeg'];
+        $data = ['nama' => '', 'foto' => 'cals.webp'];
         $prodi = Prodi::all();
         return view('mahasiswa.create', compact(['data', 'prodi']));
     }
@@ -40,18 +40,29 @@ class MahasiswaController extends Controller
         $validateData = $request->validate(
             [
                 'nim' => 'required|unique:mahasiswa|max:255',
-                'nama' => '',
-                'prodi_id' => '',
-                'no_hp' => '',
-                'alamat' => '',
+                'nama' => 'required|max:255',
+                'prodi_id' => 'required',
+                'no_hp' => 'required|max:255',
+                'alamat' => 'required|max:255',
+                'foto' => 'image|file|max:2048'
             ],
             [
                 'nim.required' => 'Nim Harus diisi',
                 'nim.unique' => 'Nim sudah ada',
                 'nim.max' => 'Nim maksimal 255 karakter',
+                'nama.required' => 'Nama Harus diisi',
+                'prodi_id.required' => 'prodi Harus dipilih',
+                'no_hp.required' => 'No hp Harus diisi',
+                'alamat.required' => 'alamat Harus diisi',
+                'foto.image' => 'File Bukan Bertipe Image',
+                'foto.max' => 'Ukuran foto maksimal 2MB'
             ]
             );
-            $validateData['foto'] = $validateData['nim'] . '.jpg';
+
+            if($request->file('foto')){
+                $validateData['foto'] = $request->file('foto')->store('img');
+            }
+           
             $validateData['password'] = Hash::make($validateData['nim']);
             Mahasiswa::create($validateData);
             return redirect ('/mahasiswa');
@@ -70,7 +81,7 @@ class MahasiswaController extends Controller
      */
     public function edit(string $id)
 {
-    $data = ['nama' => 'hitler', 'foto' => 'opp.jpeg'];
+    $data = ['nama' => '', 'foto' => 'cals.webp'];
     $mahasiswa = Mahasiswa::where('nim', $id)->first(); // Adjust if the primary key is 'nim'
     $prodi = Prodi::all();
     return view('mahasiswa.edit', compact(['data', 'mahasiswa', 'prodi']));

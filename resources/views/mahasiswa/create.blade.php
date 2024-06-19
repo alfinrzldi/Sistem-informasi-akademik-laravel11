@@ -40,36 +40,66 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="nim">NIM</label>
-                                    <input type="text" name="nim" class="form-control @error ('nim') is-invalid @enderror " id="nim" placeholder="Masukkan NIM">
+                                    <input type="text" name="nim" class="form-control @error ('nim') is-invalid @enderror " id="nim" placeholder="Masukkan NIM" value="{{ old ('nim')}}">
+                                    @error('nim')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama</label>
-                                    <input type="text" name="nama" class="form-control @error ('nama') is-invalid @enderror" id="nama" placeholder="Masukkan Nama">
+                                    <input type="text" name="nama" class="form-control @error ('nama') is-invalid @enderror" id="nama" placeholder="Masukkan Nama" value="{{ old ('nama')}}">
+                                    @error('nama')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="prodi">Program Studi</label>
-                                    <select class="form-control select2bs4" style="width: 100%;" id="prodi" name="prodi_id">
+                                    <select class="form-control select2bs4 @error ('prodi_id') is-invalid @enderror" style="width: 100%;" id="prodi" name="prodi_id">
                                         <option value="">Pilih Prodi</option>
                                         @foreach ($prodi as $d)
-                                        <option value="{{ $d['id'] }}">{{$d['nama_prodi']}}</option>
+                                        <option value="{{ $d['id'] }}"{{$d->id == old('prodi_id') ? 'SELECTED' : '' }}>{{$d['nama_prodi']}}</option>
                                         @endforeach
                                     </select>
+                                    @error('prodi_id')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="nohp">Nomor HP</label>
-                                    <input type="text" name="no_hp" class="form-control" id="nohp" placeholder="Masukkan Nomor HP">
+                                    <input type="text" name="no_hp" class="form-control @error('no_hp') is-invalid @enderror" id="nohp" placeholder="Masukkan Nomor HP" value="{{ old ('no_hp')}}">
+                                    @error('no_hp')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="alamat">Alamat</label>
-                                    <input type="text" name="alamat" class="form-control" id="alamat" placeholder="Masukkan Alamat">
-                                </div>
+                                    <input type="text" name="alamat" class="form-control @error('alamat') is-invalid @enderror" id="alamat" placeholder="Masukkan Alamat" value="{{ old ('alamat')}}">
+                                    @error('alamat')
+                                    <div class="invalid-feedback">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
+                                </div >
                                 <div class="form-group">
                                     <label for="foto">Foto</label>
                                     <div class="input-group">
-                                        <div class="custom-file">
+                                        <div class="custom-file @error ('foto') is-invalid @enderror">
                                             <input type="file" name="foto" id="foto">
                                         </div>
                                     </div>
+                                    @error('foto')
+                                    <div class="invalid-feedback d-block">
+                                        {{$message}}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <!-- /.card-body -->

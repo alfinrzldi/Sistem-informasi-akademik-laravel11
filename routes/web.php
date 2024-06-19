@@ -6,12 +6,12 @@ use App\Http\Controllers\ProdiController;
 
 
 Route::get('/', function () {
-    $data = ['nama' => '', 'foto' =>'opp.jpeg'];
+    $data = ['nama' => '', 'foto' =>'cals.webp'];
     return view('dashboard', compact ('data')); 
 });
 
 Route::get('/mahasiswa', function () {
-    $data = ['nama' => '', 'foto' =>'opp.jpeg'];
+    $data = ['nama' => '', 'foto' =>'cals.webp'];
     return view('mahasiswa', compact ('data')); 
 });
 

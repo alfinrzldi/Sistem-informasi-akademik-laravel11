@@ -38,7 +38,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover text-nowrap">
+                <table class="table table-hover">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -60,10 +60,10 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$m->nim}}</td>
                       <td>{{$m->nama}}</td>
-                      <td>{{$m->prodi_id}}</td>
+                      <td>{{$m->prodi->nama_prodi}}</td>
                       <td>{{$m->no_hp}}</td>
                       <td>{{$m->alamat}}</td>
-                      <td> <img src="dist/img/{{$m->foto}}?>" width="100px" height="100px" /> </td>
+                      <td> <img src="{{ asset('storage/' .$m->foto)}}" width="100px" height="100px" /> </td>
                       <td><a href="{{ url ("mahasiswa/$m->nim/edit")}}" class="btn btn-primary" >Edit</a>
                         <form action="{{ url("mahasiswa/$m->nim")}}" method="post" class="d-inline">
                           @method('delete')

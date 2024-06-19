@@ -13,14 +13,14 @@ class ProdiController extends Controller
 {
     public function index()
     {
-        $data = ['nama' => '', 'foto' =>'opp.jpeg'];
+        $data = ['nama' => '', 'foto' =>'cals.webp'];
         $prodi = Prodi::all();
         return view('prodi.index', compact ('data', 'prodi')); 
     }
 
     public function create()
     {
-        $data = ['nama' => '', 'foto' =>'opp.jpeg'];
+        $data = ['nama' => '', 'foto' =>'cals.webp'];
         return view('prodi.create', compact(['data']));
     }
 
@@ -42,7 +42,7 @@ class ProdiController extends Controller
 
     public function edit (string $id)
     {
-        $data = ['nama' => '', 'foto' =>'opp.jpeg'];
+        $data = ['nama' => '', 'foto' =>'cals.webp'];
         $prodi = prodi::find($id);
         return view('prodi.edit', compact(['data' ,'prodi']));
     }
