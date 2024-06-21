@@ -11,17 +11,21 @@ class Mahasiswa extends Model
     use HasFactory;
 
     protected $table = 'mahasiswa';
-    protected $primarykey = 'nim';
-    protected $keytype = 'string';
+    protected $primaryKey = 'nim';
+    protected $keyType = 'string';
 
-    protected $fillable = ['nim', 'nama', 'no_hp', 'alamat', 'foto', 'password', 'prodi_id'];
+    protected $fillable = [
+        'nim',
+        'nama',
+        'no_hp',
+        'alamat',
+        'foto',
+        'password',
+        'prodi_id'
+    ];
 
     public function prodi(): BelongsTo
     {
         return $this->belongsTo(Prodi::class);
     }
-
-   
 }
-
-

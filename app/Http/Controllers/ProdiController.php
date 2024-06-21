@@ -9,18 +9,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\ValidatedData;
 
+use function PHPUnit\Framework\returnSelf;
+
 class ProdiController extends Controller
 {
     public function index()
     {
-        $data = ['nama' => '', 'foto' =>'cals.webp'];
+        $data = ['nama' => '', 'foto' =>'MYMOOD.jpg'];
         $prodi = Prodi::all();
         return view('prodi.index', compact ('data', 'prodi')); 
     }
 
     public function create()
     {
-        $data = ['nama' => '', 'foto' =>'cals.webp'];
+        $data = ['nama' => 'hitler', 'foto' =>'MYMOOD.jpg'];
         return view('prodi.create', compact(['data']));
     }
 
@@ -37,17 +39,18 @@ class ProdiController extends Controller
             ]
         );
             Prodi::create($validateData);
+            flash()->success('Data Berhasil Ditambahkan');
             return redirect ('/prodi');
     }
 
-    public function edit (string $id)
+    public function edit(String $id)
     {
-        $data = ['nama' => '', 'foto' =>'cals.webp'];
-        $prodi = prodi::find($id);
-        return view('prodi.edit', compact(['data' ,'prodi']));
+        $data = ['nama' => '', 'foto' =>'MYMOOD.jpg'];
+        $prodi = Prodi::find($id);
+        return view('prodi.edit', compact(['data', 'prodi']));
     }
 
-    public function update (Request $request, string $id)
+    public function update(Request $request, string $id)
     {
         $validateData = $request->validate(
             [
@@ -59,18 +62,15 @@ class ProdiController extends Controller
                 'nama_prodi.max' => 'Nama Prodi maksimal 255 karakter'
             ]
         );
-        prodi::where('id', $id)->update($validateData);
+        Prodi::where('id', $id)->update($validateData);
+        flash()->success('Data Berhasil diedit');
         return redirect('/prodi');
     }
 
     public function destroy(string $id)
-
     {
-    prodi::destroy($id);
-    return redirect('/prodi');
+        Prodi::destroy($id);
+        flash()->success('Data Berhasil dihapus');
+        return redirect('/prodi');
     }
-    
-    
 }
-
-
