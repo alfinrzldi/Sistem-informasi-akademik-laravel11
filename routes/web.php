@@ -3,40 +3,19 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\ProdiController;
-
+use App\Http\Controllers\LoginController;
 
 Route::get('/', function () {
-    $data = ['nama' => '', 'foto' =>'MYMOOD.jpg'];
-    return view('dashboard', compact ('data')); 
-});
+    $data = ['nama' => 'hitler', 'foto' =>'opp.jpeg'];
+    return view('dashboard', compact ('data'));
+})->name('home')->middleware('auth');
 
-Route::get('/mahasiswa', function () {
-    $data = ['nama' => '', 'foto' =>'MYMOOD.jpg'];
-    return view('mahasiswa', compact ('data')); 
-});
-
-// Route::get('/prodi', function () {
-//     $data = ['nama' => '', 'foto' =>'opp.jpeg'];
-//     return view('prodi', compact ('data')); 
-// });
+Route::resource('/prodi', ProdiController::class)->except('index')->middleware('admin');
+Route::get('/prodi', [ProdiController::class, 'index'])->middleware('auth');
+Route::resource('/mahasiswa', MahasiswaController::class)->except('index')->middleware('admin');
+Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->middleware('auth');
 
 
-
-Route::get('mahasiswa', 'App\Http\Controllers\MahasiswaController@index');
-Route::get('prodi', 'App\Http\Controllers\ProdiController@index');
-
-Route::get('/data', [MahasiswaController::class, 'index']);
-Route::get('/data/{id}', [MahasiswaController::class, 'show']);
-
-// Route::get('/prodi', [ProdiController::class, 'index']);
-// Route::get('/prodi/create', [ProdiController::class, 'create']);
-// Route::post('/prodi', [ProdiController::class, 'store']);
-
-
-
-Route::resource('/prodi', ProdiController::class);
-
-
-Route::resource('/mahasiswa', MahasiswaController::class);
-
-
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);

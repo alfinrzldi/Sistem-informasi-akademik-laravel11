@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('no_hp');
             $table->string('alamat');
             $table->string('foto');
-            $table->string('password');
             $table->foreignId('prodi_id')
             ->constrained('prodi')
             ->onUpdate('cascade')

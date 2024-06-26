@@ -123,7 +123,6 @@ class MahasiswaController extends Controller
             }
             $validateData['foto'] = $request->file('foto')->store('img');
         }
-        $validateData['password'] = Hash::make($validateData['nim']);
         Mahasiswa::where('nim', $id)->update($validateData);
         flash()->success('Data Berhasil diedit');
         return redirect('/mahasiswa');
